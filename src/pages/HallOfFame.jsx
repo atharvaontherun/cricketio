@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Papa from 'papaparse'
+import { Link } from 'react-router-dom' 
 
 export default function HallOfFame() {
   const [battingData, setBattingData] = useState([])
@@ -271,11 +272,20 @@ export default function HallOfFame() {
               Kartik
             </p>
           </div>
-
+          
         </div>
 
       </div>
+      
+      
         <footer className="border-t border-white/10 mt-10 py-10 text-center text-gray-500">
+        <div className="flex justify-center mb-10">
+  <Link to="/">
+    <button className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 hover:shadow-cyan-500/40 transition duration-300 text-black font-black px-8 py-4 rounded-2xl shadow-2xl shadow-cyan-500/20">
+      ← BACK TO HOME
+    </button>
+  </Link>
+</div>
         <p>
           Cricket IO • Built by Atharva Mehta
         </p>
