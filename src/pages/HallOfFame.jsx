@@ -148,13 +148,13 @@ export default function HallOfFame() {
       {/* HALL OF FAME */}
 
       <div className="flex items-center justify-center gap-8 mb-20">
-        <div className="h-[2px] w-20 md:w-64 bg-gradient-to-r from-transparent to-green/20"></div>
+        <div className="h-[2px] w-20 md:w-64 bg-gradient-to-r from-transparent to-white/20"></div>
 
         <h1 className="text-3xl md:text-6xl font-black tracking-[0.2em] uppercase whitespace-nowrap text-green-500">
           Hall Of Fame
         </h1>
 
-        <div className="h-[2px] w-20 md:w-64 bg-gradient-to-l from-transparent to-green/20"></div>
+        <div className="h-[2px] w-20 md:w-64 bg-gradient-to-l from-transparent to-white/20"></div>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
