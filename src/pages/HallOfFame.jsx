@@ -275,7 +275,11 @@ export default function HallOfFame() {
         </div>
 
       </div>
-
+        <footer className="border-t border-white/10 mt-10 py-10 text-center text-gray-500">
+        <p>
+          Cricket IO • Built by Atharva Mehta
+        </p>
+      </footer>
     </div>
   )
 }

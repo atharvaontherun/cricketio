@@ -98,20 +98,27 @@ export default function CricketIO() {
             Your local cricket leaderboard powered by live Google Sheets stats.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-14">
-            <a
-              href="#orange-cap"
-                className="bg-gradient-to-r from-orange-400 to-amber-500 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300"
-            >
-            ORANGE CAP RACE
+        
+          <div className="flex justify-center gap-8 mt-14 flex-wrap">
+            <a href="#orange-cap">
+              <button className="bg-gradient-to-r from-orange-400 to-amber-500 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
+                ORANGE CAP RACE
+              </button>
             </a>
 
-            <a
-              href="#purple-cap"
-                className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-purple-500/20 hover:scale-105 transition duration-300"
-            >
-            PURPLE CAP RACE
+            <a href="#purple-cap">
+              <button className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-purple-500/20 hover:scale-105 transition duration-300">
+                PURPLE CAP RACE
+              </button>
             </a>
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <Link to="/halloffame">
+              <button className="bg-gradient-to-r from-emerald-400 to-green-500 text-white font-black px-12 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
+                   HALL OF FAME    
+              </button>
+            </Link>
           </div>
         </div>
       </section>
