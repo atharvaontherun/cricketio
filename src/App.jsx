@@ -99,20 +99,26 @@ export default function CricketIO() {
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 mt-14">
-            <button className="bg-gradient-to-r from-orange-400 to-amber-500 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
-              ORANGE CAP RACE
-            </button>
+            <a
+              href="#orange-cap"
+                className="bg-gradient-to-r from-orange-400 to-amber-500 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300"
+            >
+            ORANGE CAP RACE
+            </a>
 
-            <button className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-purple-500/20 hover:scale-105 transition duration-300">
-              PURPLE CAP RACE
-            </button>
+            <a
+              href="#purple-cap"
+                className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-purple-500/20 hover:scale-105 transition duration-300"
+            >
+            PURPLE CAP RACE
+            </a>
           </div>
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10">
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/5">
-          <div className="flex items-center justify-between mb-8">
+          <div id="orange-cap" className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-4xl font-black text-orange-400">
                 Orange Cap
@@ -161,7 +167,7 @@ export default function CricketIO() {
         </div>
 
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5">
-          <div className="flex items-center justify-between mb-8">
+          <div id="purple-cap" className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-4xl font-black text-purple-400">
                 Purple Cap
