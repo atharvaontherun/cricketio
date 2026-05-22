@@ -59,7 +59,7 @@ export default function HallOfFame() {
 
   const sections = [
     {
-      title: 'MOTM Kings',
+      title: 'Most Man Of The Matches',
       stat: 'MOTM',
       color: 'from-yellow-300 via-amber-400 to-orange-500',
       data: [...motmData]
@@ -68,7 +68,7 @@ export default function HallOfFame() {
     },
 
     {
-      title: 'Highest Scores',
+      title: 'Highest Individual Scores',
       stat: 'Highest',
       color: 'from-orange-400 to-red-500',
       data: [...battingData]
@@ -91,7 +91,7 @@ export default function HallOfFame() {
     },
 
     {
-      title: 'Six Hitters',
+      title: 'Most Six Hitters',
       stat: 'Sixes',
       color: 'from-pink-400 to-purple-500',
       data: [...battingData]
@@ -239,7 +239,7 @@ export default function HallOfFame() {
               {maxDucks}
             </h1>
 
-            <p className="text-gray-300 text-lg font-medium mt-4">
+            <p className="text-xl font-semibold mt-4 text-gray-300">
               {duckKings.map((player) => player.Player).join(', ')}
             </p>
           </div>
@@ -250,11 +250,11 @@ export default function HallOfFame() {
             </p>
 
             <h1 className="text-5xl font-black text-red-500 leading-none">
-              {worstBowling?.WorstBowling}64 ({worstBowling?.Balls}19)
+              {worstBowling?.WorstBowling}44 ({worstBowling?.Balls}9)
             </h1>
 
             <p className="text-xl font-semibold mt-4 text-gray-300">
-              {worstBowling?.Player}
+              Shouryam
             </p>
           </div>
 
@@ -268,7 +268,7 @@ export default function HallOfFame() {
             </h1>
 
             <p className="text-xl font-semibold mt-4 text-gray-300">
-              Shouryam
+              Kartik
             </p>
           </div>
 
