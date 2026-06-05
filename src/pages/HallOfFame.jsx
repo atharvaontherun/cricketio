@@ -175,12 +175,12 @@ export default function HallOfFame() {
 
   return (
     
-    <div className="min-h-screen bg-[#030712] text-white px-6 py-20">
+    <div className="min-h-screen bg-[#030712] text-white pb-20">
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-500 flex items-center justify-center font-black text-black text-xl shadow-lg shadow-cyan-500/20">
-              c
+              C
             </div>
 
             <div>
@@ -191,13 +191,13 @@ export default function HallOfFame() {
           </div>
 
           <Link to="/" className="bg-emerald-400 hover:bg-emerald-300 transition text-black font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20">
-            HOME ↗
+            ← HOME
           </Link>
         </div>
       </nav>
       {/* HALL OF FAME */}
 
-      <div className="flex items-center justify-center gap-8 mb-20">
+      <div className="flex items-center justify-center gap-8 mt-12 mb-16">
         <div className="h-[2px] w-20 md:w-64 bg-gradient-to-r from-transparent to-white/20"></div>
 
         <h1 className="text-3xl md:text-6xl font-black tracking-[0.2em] uppercase whitespace-nowrap text-green-500">
