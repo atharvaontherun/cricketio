@@ -73,7 +73,11 @@ export default function HallOfFame() {
       stat: 'Highest',
       color: 'from-orange-400 to-red-500',
       data: [...battingData]
-        .sort((a, b) => Number(b.Highest) - Number(a.Highest))
+        .sort(
+        (a, b) =>
+          parseInt(b.Highest) -
+          parseInt(a.Highest)
+            )
         .slice(0, 5),
     },
 
@@ -88,6 +92,14 @@ export default function HallOfFame() {
             Number(b['Strike Rate']) -
             Number(a['Strike Rate'])
         )
+        .slice(0, 5),
+    },
+    {
+      title: 'Most Thirties',
+      stat: 'Thirties',
+      color: 'from-lime-400 to-green-500',
+      data: [...battingData]
+        .sort((a, b) => Number(b.Thirties) - Number(a.Thirties))
         .slice(0, 5),
     },
 
@@ -112,6 +124,24 @@ export default function HallOfFame() {
             parseFloat(b.Economy)
         )
         .slice(0, 5),
+    },
+
+    {
+      title: 'Most Fifties',
+      stat: 'Fifties',
+      color: 'from-yellow-400 to-amber-500',
+      data: [...battingData]
+       .sort((a, b) => Number(b.Fifties) - Number(a.Fifties))
+       .slice(0, 5),
+    },
+
+    {
+      title: 'On The Go 4s',
+      stat: 'Fours',
+      color: 'from-yellow-400 to-amber-500',
+      data: [...battingData]
+       .sort((a, b) => Number(b.Fours) - Number(a.Fours))
+       .slice(0, 5),
     },
 
     {
@@ -144,8 +174,27 @@ export default function HallOfFame() {
     )[0]
 
   return (
+    
     <div className="min-h-screen bg-[#030712] text-white px-6 py-20">
+      <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-500 flex items-center justify-center font-black text-black text-xl shadow-lg shadow-cyan-500/20">
+              c
+            </div>
 
+            <div>
+              <h1 className="text-3xl font-black tracking-tight">
+                Cricket IO
+              </h1>
+            </div>
+          </div>
+
+          <Link to="/" className="bg-emerald-400 hover:bg-emerald-300 transition text-black font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20">
+            HOME ↗
+          </Link>
+        </div>
+      </nav>
       {/* HALL OF FAME */}
 
       <div className="flex items-center justify-center gap-8 mb-20">
@@ -178,8 +227,15 @@ export default function HallOfFame() {
                   className={`inline-block bg-gradient-to-r ${section.color} bg-clip-text text-transparent`}
                 >
                   <h1 className="text-6xl font-black leading-none">
-                    {winner?.[section.stat]}
-                  </h1>
+  {winner?.[section.stat]}
+
+  {section.stat === 'Highest' &&
+    winner?.HighB&& (
+      <span className="text-2xl text-white/50 ml-3">
+        ({winner.HighB})
+      </span>
+  )}
+</h1>
                 </div>
 
                 <p className="text-xl font-semibold mt-3">
@@ -204,8 +260,15 @@ export default function HallOfFame() {
                     </div>
 
                     <span className="text-sm md:text-base font-semibold">
-                      {player[section.stat]}
-                    </span>
+  {player[section.stat]}
+
+  {section.stat === 'Highest' &&
+    player.HighB && (
+      <span className="text-white/40 ml-1">
+        ({player.HighB})
+      </span>
+  )}
+</span>
                   </div>
                 ))}
               </div>
