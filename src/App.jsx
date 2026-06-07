@@ -48,6 +48,9 @@ export default function CricketIO() {
     )
   }, [])
 
+const orangeCapLeader = battingData[0]
+const purpleCapLeader = bowlingData[0]
+
   return (
     <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
@@ -150,8 +153,13 @@ export default function CricketIO() {
 
                   <div>
                     <h3 className="text-2xl font-bold">
-                      {player.Player}
-                    </h3>
+                      {player.Player} {index !== 0 && orangeCapLeader && (
+  <span className="text-red-400 text-sm font-semibold mt-1">
+    ▼ {Number(orangeCapLeader.Runs) - Number(player.Runs)}
+  </span>
+)}
+                    </h3> 
+                    
 
                     <p className="text-gray-400">
                       SR: {player['Strike Rate']} | Innings: {player.Innings}
@@ -165,8 +173,11 @@ export default function CricketIO() {
                   </div>
 
                   <div className="text-gray-500 text-sm">
-                    Runs
-                  </div>
+  Runs
+</div>
+
+
+                
                 </div>
               </div>
             ))}
@@ -199,8 +210,12 @@ export default function CricketIO() {
 
                   <div>
                     <h3 className="text-2xl font-bold">
-                      {player.Player}
-                    </h3>
+                      {player.Player} {index !== 0 && purpleCapLeader && (
+  <span className="text-red-400 text-sm font-semibold mt-1">
+    ▼ {Number(purpleCapLeader.Wickets) - Number(player.Wickets)}
+  </span>
+)}
+                    </h3> 
 
                     <p className="text-gray-400">
                       Economy: {player.Economy} | Overs: {player.Overs}
