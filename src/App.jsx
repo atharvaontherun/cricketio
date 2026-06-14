@@ -154,7 +154,7 @@ const primeCapLeader = primeCapData[0]
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-20 ">
+      <section className="max-w-7xl mx-auto px-6 py-4 ">
           <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-emerald-500/5">
             <div className="flex items-center justify-between mb-8">
               <div>
