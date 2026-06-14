@@ -51,6 +51,34 @@ export default function CricketIO() {
 const orangeCapLeader = battingData[0]
 const purpleCapLeader = bowlingData[0]
 
+const primeCapData = battingData
+  .map((player) => {
+    const bowler =
+      bowlingData.find(
+        (b) => b.Player === player.Player
+      ) || {}
+
+    const primePoints =
+      Number(player.Runs || 0) +
+      Number(bowler.Wickets || 0) * 25 +
+      Number(player.MOTM || 0) * 15 +
+      Number(player.Centuries || 0) * 30 +
+      Number(player.Fifties || 0) * 20 +
+      Number(player.Thirties || 0) * 15 +
+      Number(bowler.DotBalls || 0) * 0.5
+
+    return {
+      ...player,
+      PrimePoints: Math.round(primePoints),
+    }
+  })
+  .sort(
+    (a, b) =>
+      b.PrimePoints - a.PrimePoints
+  )
+
+const primeCapLeader = primeCapData[0]
+
   return (
     <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
@@ -98,7 +126,7 @@ const purpleCapLeader = bowlingData[0]
           </h1>
 
           <p className="mt-8 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            Your local cricket leaderboard powered by live Google Sheets stats.
+            Koh-e-Fiza cricket leaderboard backed by live Google Sheets stats.
           </p>
 
         
@@ -125,6 +153,65 @@ const purpleCapLeader = bowlingData[0]
           </div>
         </div>
       </section>
+
+      <section className="max-w-7xl mx-auto px-6 py-20 ">
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-emerald-500/5">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
+                  🧢Prime Cap
+                </h2>
+
+              
+              </div>
+            </div>
+
+          <section className="max-w-7xl mx-auto px-6 py-2 grid md:grid-cols-1 gap-10"></section>
+            <div className="space-y-5">
+              {primeCapData.slice(0, 5).map((player, index) => (
+                <div
+                  key={index}
+                  className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-emerald-400/30 transition"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-200 via-zinc-300 to-slate-400 flex items-center justify-center text-black font-black text-xl">
+                      #{index + 1}
+                    </div>
+
+                    <div>
+                      <h3 className="text-2xl font-bold">
+                        {player.Player}
+
+                        {index !== 0 &&
+                          primeCapLeader && (
+                            <span className="text-red-400 text-sm font-semibold ml-2">
+                              ▼{" "}
+                              {primeCapLeader.PrimePoints -
+                                player.PrimePoints}
+                            </span>
+                          )}
+                      </h3>
+
+                      <p className="text-gray-400">
+                        Season 1 Ratings
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
+                      {player.PrimePoints}
+                    </div>
+
+                    <div className="text-gray-500 text-sm">
+                      Prime Points
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>        
 
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10">
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/5">
