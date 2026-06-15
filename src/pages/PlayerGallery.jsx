@@ -2,6 +2,13 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 
+import atharvaImg from '../assets/players/atharva.jpeg';
+import hardikImg from '../assets/players/hardik.png';
+import ashishImg from '../assets/players/ashish.png';
+import shouryamImg from '../assets/players/shouryam.png';
+import kartikImg from '../assets/players/kartik.png';
+import ayushImg from '../assets/players/ayush.png';
+
 export default function PlayerGallery() {
   const [battingData, setBattingData] = useState([]);
   const [bowlingData, setBowlingData] = useState([]);
@@ -37,14 +44,29 @@ export default function PlayerGallery() {
     );
   }, []);
 
-  const players = [
-    { name: 'Atharva', image: '/assets/players/atharva.jpeg' },
-    { name: 'Hardik', image: '/assets/players/hardik.png' },
-    { name: 'Ashish', image: '/assets/players/ashish.png' },
-    { name: 'Shouryam', image: '/assets/players/shouryam.png' },
-    { name: 'Kartik', image: '/assets/players/kartik.png' },
-    { name: 'Ayush', image: '/assets/players/ayush.png' },
-  ];
+ const players = [
+  { 
+    name: 'Atharva', 
+    image: atharvaImg, 
+    title: 'Powerplay Terror', 
+    capColor: 'red' 
+  },
+  { 
+    name: 'Hardik', 
+    image: hardikImg, 
+    title: 'Purple Cap Leader', 
+    capColor: 'purple' 
+  },
+  { 
+    name: 'Ashish', 
+    image: ashishImg, 
+    title: 'Orange Cap Leader', 
+    capColor: 'orange' 
+  },       // leave empty if no title
+  { name: 'Shouryam', image: shouryamImg, title: 'Unexpected Clutcher' },
+  { name: 'Kartik', image: kartikImg, title: 'Utility Player' },
+  { name: 'Ayush', image: ayushImg, title: 'Emerging Player' },
+];
 
   if (loading) {
     return (
@@ -111,24 +133,38 @@ export default function PlayerGallery() {
                   src={player.image}
                   alt={player.name}
                   className="h-72 w-full object-cover"
+                  onError={(e) => e.target.style.display = 'none'}
                 />
 
                 <div className="p-6">
                   <h2 className="text-3xl font-black">{player.name}</h2>
+                 {player.title && (
+  <p 
+    className={`font-bold mt-1 text-lg ${
+      player.capColor === 'orange' ? 'text-orange-400' : 
+      player.capColor === 'red' ? 'text-red-400' : 
+      player.capColor === 'purple' ? 'text-purple-400' : 
+      'text-cyan-400'
+    }`}
+  >
+    {player.title}
+  </p>
+)}
+                
                   <div className="mt-4 space-y-2 text-sm">
-                    
+                  
                     <p className="text-cyan-400 font-black text-lg mt-4">
                       👑 Prime Rating: {Math.round(primeRating)}
                     </p>
-                    
                     <p>🏏 Runs: {playerData.Runs || 0}</p>
                     <p>⚡ Strike Rate: {playerData['Strike Rate'] || 0}</p>
-                    <p>🎯 Wickets: {bowlerData.Wickets || 0}</p>
+                    <p>🎯 Wickets taken: {bowlerData.Wickets || 0}</p>
                     <p>🏆 MOTM: {playerData.MOTM || 0}</p>
                     <p>💯 Fifties: {playerData.Fifties || 0}</p>
                     <p>🔥 Thirties: {playerData.Thirties || 0}</p>
                     <p>⚪ Dot Balls: {bowlerData.DotBalls || 0}</p>
 
+                    
                   </div>
                 </div>
               </div>
