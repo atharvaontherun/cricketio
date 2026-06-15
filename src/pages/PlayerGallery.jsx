@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
+import atharvaImg from 'C:\\Users\\athar\\OneDrive\\Desktop\\cricketio\\src\\assets\\players\\atharva.jpeg' 
 
 export default function PlayerGallery() {
-  const players = [
-    "Atharva",
-    "Hardik",
-    "Ashish",
-    "Shouryam",
-    "Kartik",
-    "Ayush"
-  ]
+const players = [
+  { name: "Atharva", image: atharvaImg },
+  { name: "Hardik" },
+  { name: "Ashish" },
+  { name: "Shouryam"},
+  { name: "Kartik" },
+  { name: "Ayush"},
+]
 
   return (
     <div className="min-h-screen bg-[#030712] text-white">
@@ -58,13 +59,15 @@ export default function PlayerGallery() {
               className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-cyan-400/30 transition duration-300"
             >
 
-              <div className="h-72 bg-gray-800 flex items-center justify-center text-gray-500 text-lg font-bold">
-                PHOTO
-              </div>
+              <img
+                src={player.image}
+                alt={player.name}
+                className="h-72 w-full object-cover"
+              />
 
               <div className="p-6">
                 <h2 className="text-2xl font-black">
-                  {player}
+                  {player.name}
                 </h2>
 
                 <p className="text-gray-400 mt-2">
