@@ -146,13 +146,21 @@ const primeCapLeader = primeCapData[0]
             </a>
           </div>
 
-          <div className="flex justify-center mt-6">
+
+          <div className="flex justify-center gap-8 mt-14 flex-wrap">
+            <Link to="/gallery">
+              <button className="bg-gradient-to-r from-red-300 to-red-500 text-white font-black px-12 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
+               📸 Player Gallery
+              </button>
+            </Link>
+
             <Link to="/halloffame">
               <button className="bg-gradient-to-r from-emerald-400 to-green-500 text-white font-black px-12 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
-                   🏆 HALL OF FAME ➜ 
+                🏆 HALL OF FAME ➜
               </button>
             </Link>
           </div>
+
         </div>
       </section>
 
