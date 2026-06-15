@@ -117,7 +117,7 @@ export default function PlayerGallery() {
 
             const primeRating =
               Number(playerData.Runs || 0) +
-              Number(bowlerData.Wickets || 0) * 25 +
+              Number(bowlerData.Wickets || 0) * 20 +
               Number(playerData.MOTM || 0) * 15 +
               Number(playerData.Hundreds || 0) * 30 +
               Number(playerData.Fifties || 0) * 20 +
