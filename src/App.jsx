@@ -50,6 +50,7 @@ export default function CricketIO() {
     )
   }, [])
 
+  
 const orangeCapLeader = battingData[0]
 const purpleCapLeader = bowlingData[0]
 

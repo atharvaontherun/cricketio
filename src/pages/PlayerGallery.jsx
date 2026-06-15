@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import atharvaImg from '../assets/players/atharva.jpeg';
 import hardikImg from '../assets/players/hardik.png';
 import ashishImg from '../assets/players/ashish.png';
-import shouryamImg from '../assets/players/shouryam.png';
+import shouryamImg from '../assets/players/shouryam.jpeg';
 import kartikImg from '../assets/players/kartik.png';
 import ayushImg from '../assets/players/ayush.png';
 
