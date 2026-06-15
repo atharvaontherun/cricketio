@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import Papa from 'papaparse'
 import { Link } from 'react-router-dom'
-import PlayerGallery from './pages/PlayerGallery'
-
 
 export default function CricketIO() {
   const [battingData, setBattingData] = useState([])
   const [bowlingData, setBowlingData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Papa.parse(
@@ -15,14 +14,8 @@ export default function CricketIO() {
         download: true,
         header: true,
         complete: (results) => {
-          const cleaned = results.data.filter(
-            (player) => player.Player
-          )
-
-          const sorted = cleaned.sort(
-            (a, b) => Number(b.Runs) - Number(a.Runs)
-          )
-
+          const cleaned = results.data.filter((player) => player.Player)
+          const sorted = cleaned.sort((a, b) => Number(b.Runs) - Number(a.Runs))
           setBattingData(sorted)
         },
       }
@@ -36,54 +29,58 @@ export default function CricketIO() {
         download: true,
         header: true,
         complete: (results) => {
-          const cleaned = results.data.filter(
-            (player) => player.Player
-          )
-
-          const sorted = cleaned.sort(
-            (a, b) => Number(b.Wickets) - Number(a.Wickets)
-          )
-
+          const cleaned = results.data.filter((player) => player.Player)
+          const sorted = cleaned.sort((a, b) => Number(b.Wickets) - Number(a.Wickets))
           setBowlingData(sorted)
+          setLoading(false)   // ← Important: stop loading when second fetch completes
         },
       }
     )
   }, [])
 
-  
-const orangeCapLeader = battingData[0]
-const purpleCapLeader = bowlingData[0]
+  // Safety fallback (in case fetch fails)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 8000)
+    return () => clearTimeout(timer)
+  }, [])
 
-const primeCapData = battingData
-  .map((player) => {
-    const bowler =
-      bowlingData.find(
-        (b) => b.Player === player.Player
-      ) || {}
+  const orangeCapLeader = battingData[0]
+  const purpleCapLeader = bowlingData[0]
 
-    const primePoints =
-      Number(player.Runs || 0) +
-      Number(bowler.Wickets || 0) * 20 +
-      Number(player.MOTM || 0) * 15 +
-      Number(player.Hundreds || 0) * 30 +
-      Number(player.Fifties || 0) * 20 +
-      Number(player.Thirties || 0) * 15 +
-      Number(bowler.DotBalls || 0) * 0.5
+  const primeCapData = battingData
+    .map((player) => {
+      const bowler = bowlingData.find((b) => b.Player === player.Player) || {}
 
-    return {
-      ...player,
-      PrimePoints: Math.round(primePoints),
-    }
-  })
-  .sort(
-    (a, b) =>
-      b.PrimePoints - a.PrimePoints
-  )
+      const primePoints =
+        Number(player.Runs || 0) +
+        Number(bowler.Wickets || 0) * 20 +
+        Number(player.MOTM || 0) * 15 +
+        Number(player.Hundreds || 0) * 30 +
+        Number(player.Fifties || 0) * 20 +
+        Number(player.Thirties || 0) * 15 +
+        Number(bowler.DotBalls || 0) * 0.5
 
-const primeCapLeader = primeCapData[0]
+      return {
+        ...player,
+        PrimePoints: Math.round(primePoints),
+      }
+    })
+    .sort((a, b) => b.PrimePoints - a.PrimePoints)
+
+  const primeCapLeader = primeCapData[0]
+
+  // Loading Screen
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center">
+        <p className="text-xl">By Atharva Mehta...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
+      {/* Rest of your code remains exactly the same */}
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -103,6 +100,11 @@ const primeCapLeader = primeCapData[0]
           </Link>
         </div>
       </nav>
+
+      {/* ... all your sections below remain unchanged ... */}
+      {/* (I didn't paste the entire return again to keep it short) */}
+
+      {/* Just keep everything from <section className="relative py-32 px-6"> till the end as it was */}
 
       <section className="relative py-32 px-6">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-purple-500/5 to-transparent blur-3xl"></div>

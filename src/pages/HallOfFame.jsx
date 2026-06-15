@@ -6,6 +6,7 @@ export default function HallOfFame() {
   const [battingData, setBattingData] = useState([])
   const [bowlingData, setBowlingData] = useState([])
   const [motmData, setMotmData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Papa.parse(
@@ -14,10 +15,7 @@ export default function HallOfFame() {
         download: true,
         header: true,
         complete: (results) => {
-          const cleaned = results.data.filter(
-            (player) => player.Player
-          )
-
+          const cleaned = results.data.filter((player) => player.Player)
           setBattingData(cleaned)
         },
       }
@@ -31,10 +29,7 @@ export default function HallOfFame() {
         download: true,
         header: true,
         complete: (results) => {
-          const cleaned = results.data.filter(
-            (player) => player.Player
-          )
-
+          const cleaned = results.data.filter((player) => player.Player)
           setBowlingData(cleaned)
         },
       }
@@ -48,14 +43,18 @@ export default function HallOfFame() {
         download: true,
         header: true,
         complete: (results) => {
-          const cleaned = results.data.filter(
-            (player) => player.Player
-          )
-
+          const cleaned = results.data.filter((player) => player.Player)
           setMotmData(cleaned)
+          setLoading(false)        // ← Stop loading when last fetch completes
         },
       }
     )
+  }, [])
+
+  // Safety fallback
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 8000)
+    return () => clearTimeout(timer)
   }, [])
 
   const sections = [
@@ -73,11 +72,7 @@ export default function HallOfFame() {
       stat: 'Highest',
       color: 'from-orange-400 to-red-500',
       data: [...battingData]
-        .sort(
-        (a, b) =>
-          parseInt(b.Highest) -
-          parseInt(a.Highest)
-            )
+        .sort((a, b) => parseInt(b.Highest) - parseInt(a.Highest))
         .slice(0, 5),
     },
 
@@ -87,11 +82,7 @@ export default function HallOfFame() {
       color: 'from-cyan-400 to-blue-500',
       data: [...battingData]
         .filter((p) => Number(p.Runs) > 100)
-        .sort(
-          (a, b) =>
-            Number(b['Strike Rate']) -
-            Number(a['Strike Rate'])
-        )
+        .sort((a, b) => Number(b['Strike Rate']) - Number(a['Strike Rate']))
         .slice(0, 5),
     },
     {
@@ -118,11 +109,7 @@ export default function HallOfFame() {
       color: 'from-emerald-400 to-green-500',
       data: [...bowlingData]
         .filter((p) => Number(p.Overs) >= 5)
-        .sort(
-          (a, b) =>
-            parseFloat(a.Economy) -
-            parseFloat(b.Economy)
-        )
+        .sort((a, b) => parseFloat(a.Economy) - parseFloat(b.Economy))
         .slice(0, 5),
     },
 
@@ -149,33 +136,32 @@ export default function HallOfFame() {
       stat: 'DotBalls',
       color: 'from-violet-400 to-indigo-500',
       data: [...bowlingData]
-        .sort(
-          (a, b) =>
-            Number(b.DotBalls) -
-            Number(a.DotBalls)
-        )
+        .sort((a, b) => Number(b.DotBalls) - Number(a.DotBalls))
         .slice(0, 5),
     },
   ]
 
-  const maxDucks = Math.max(
-    ...battingData.map((p) => Number(p.Ducks || 0))
-  )
+  const maxDucks = Math.max(...battingData.map((p) => Number(p.Ducks || 0)))
 
   const duckKings = battingData.filter(
     (p) => Number(p.Ducks) === maxDucks
   )
 
   const worstBowling = [...bowlingData]
-    .sort(
-      (a, b) =>
-        Number(b.WorstBowling) -
-        Number(a.WorstBowling)
-    )[0]
+    .sort((a, b) => Number(b.WorstBowling) - Number(a.WorstBowling))[0]
+
+  // Loading Screen
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center">
+        <p className="text-xl">Loading Hall of Fame...</p>
+      </div>
+    )
+  }
 
   return (
-    
     <div className="min-h-screen bg-[#030712] text-white pb-20">
+      {/* Rest of your code stays exactly the same from here */}
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -195,8 +181,8 @@ export default function HallOfFame() {
           </Link>
         </div>
       </nav>
-      {/* HALL OF FAME */}
 
+      {/* HALL OF FAME */}
       <div className="flex items-center justify-center gap-8 mt-12 mb-16">
         <div className="h-[2px] w-20 md:w-64 bg-gradient-to-r from-transparent to-white/20"></div>
 
@@ -207,6 +193,10 @@ export default function HallOfFame() {
         <div className="h-[2px] w-20 md:w-64 bg-gradient-to-l from-transparent to-white/20"></div>
       </div>
 
+      {/* ... rest of your JSX remains unchanged ... */}
+      {/* (All the sections, Hall of Shame, footer etc. stay exactly as you had) */}
+
+      {/* Just paste your original return content from the <div className="flex items-center..."> down to the end */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 
         {sections.map((section, idx) => {
