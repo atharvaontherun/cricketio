@@ -63,7 +63,7 @@ export default function PlayerGallery() {
     title: 'Orange Cap Leader', 
     capColor: 'orange' 
   },       // leave empty if no title
-  { name: 'Shouryam', image: shouryamImg, title: 'Unexpected Clutcher' },
+  { name: 'Shouryam', image: shouryamImg, title: 'Elite Clutch Player' },
   { name: 'Kartik', image: kartikImg, title: 'Utility Player' },
   { name: 'Ayush', image: ayushImg, title: 'Emerging Player' },
 ];
