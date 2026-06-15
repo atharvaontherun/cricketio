@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import atharvaImg from 'C:\\Users\\athar\\OneDrive\\Desktop\\cricketio\\src\\assets\\players\\atharva.jpeg' 
+import atharvaImg from '../assets/players/atharva.jpeg' 
 
 export default function PlayerGallery() {
 const players = [
