@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import Papa from 'papaparse'
 import { Link } from 'react-router-dom'
+import PlayerGallery from './pages/PlayerGallery'
+
 
 export default function CricketIO() {
   const [battingData, setBattingData] = useState([])

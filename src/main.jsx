@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import PlayerGallery from './pages/PlayerGallery'
 
 import {
   BrowserRouter,
@@ -15,6 +16,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+
+        <Route
+          path="/gallery"
+          element={<PlayerGallery />}
+        />  
+
         <Route path="/" element={<App />} />
 
         <Route
