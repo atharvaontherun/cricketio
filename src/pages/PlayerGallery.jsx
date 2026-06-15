@@ -63,8 +63,8 @@ export default function PlayerGallery() {
     title: 'Orange Cap Leader', 
     capColor: 'orange' 
   },       // leave empty if no title
-  { name: 'Shouryam', image: shouryamImg, title: 'Elite Clutch Player' },
-  { name: 'Kartik', image: kartikImg, title: 'Utility Player' },
+  { name: 'Shouryam', image: shouryamImg, title: 'Elite Clutch Player', capColor: 'slate' },
+  { name: 'Kartik', image: kartikImg, title: 'Silent Contributor' },
   { name: 'Ayush', image: ayushImg, title: 'Emerging Player' },
 ];
 
@@ -142,6 +142,7 @@ export default function PlayerGallery() {
   <p 
     className={`font-bold mt-1 text-lg ${
       player.capColor === 'orange' ? 'text-orange-400' : 
+      player.capColor === 'slate' ? 'text-slate-400' :
       player.capColor === 'red' ? 'text-red-400' : 
       player.capColor === 'purple' ? 'text-purple-400' : 
       'text-cyan-400'
@@ -158,7 +159,7 @@ export default function PlayerGallery() {
                     </p>
                     <p>🏏 Runs: {playerData.Runs || 0}</p>
                     <p>⚡ Strike Rate: {playerData['Strike Rate'] || 0}</p>
-                    <p>🎯 Wickets taken: {bowlerData.Wickets || 0}</p>
+                    <p>🎯 Wickets Taken: {bowlerData.Wickets || 0}</p>
                     <p>🏆 MOTM: {playerData.MOTM || 0}</p>
                     <p>💯 Fifties: {playerData.Fifties || 0}</p>
                     <p>🔥 Thirties: {playerData.Thirties || 0}</p>
