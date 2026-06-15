@@ -62,7 +62,7 @@ const primeCapData = battingData
 
     const primePoints =
       Number(player.Runs || 0) +
-      Number(bowler.Wickets || 0) * 25 +
+      Number(bowler.Wickets || 0) * 20 +
       Number(player.MOTM || 0) * 15 +
       Number(player.Hundreds || 0) * 30 +
       Number(player.Fifties || 0) * 20 +
