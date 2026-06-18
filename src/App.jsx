@@ -90,7 +90,7 @@ export default function CricketIO() {
 
             <div>
               <h1 className="text-3xl font-black tracking-tight">
-                Cricket IO
+                <Link to="/">Cricket IO</Link>
               </h1>
             </div>
           </div>
