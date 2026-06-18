@@ -100,12 +100,6 @@ export default function CricketIO() {
           </Link>
         </div>
       </nav>
-
-      {/* ... all your sections below remain unchanged ... */}
-      {/* (I didn't paste the entire return again to keep it short) */}
-
-      {/* Just keep everything from <section className="relative py-32 px-6"> till the end as it was */}
-
       <section className="relative py-32 px-6">
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-purple-500/5 to-transparent blur-3xl"></div>
 
@@ -152,7 +146,7 @@ export default function CricketIO() {
 
           <div className="flex justify-center gap-8 mt-14 flex-wrap">
             <Link to="/gallery">
-              <button className="bg-gradient-to-r from-red-300 to-red-500 text-white font-black px-12 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
+              <button className="bg-gradient-to-r from-red-400 to-red-500 text-white font-black px-16 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
                📸 Player Gallery
               </button>
             </Link>
