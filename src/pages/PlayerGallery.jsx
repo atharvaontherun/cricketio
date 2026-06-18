@@ -84,7 +84,9 @@ export default function PlayerGallery() {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-500 flex items-center justify-center font-black text-black text-xl shadow-lg shadow-cyan-500/20">
               C
             </div>
-            <h1 className="text-3xl font-black tracking-tight">Cricket IO</h1>
+            <h1 className="text-3xl font-black tracking-tight">
+              <Link to="/">Cricket IO</Link>
+            </h1>
           </div>
 
           <Link
