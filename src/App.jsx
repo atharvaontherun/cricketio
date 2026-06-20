@@ -187,7 +187,7 @@ export default function CricketIO() {
 
                     <div>
                       <h3 className="text-2xl font-bold">
-                        {player.Player}
+                        {player.Player} <a className="font-normal" href="/gallery">🛈︎</a>
 
                         {index !== 0 &&
                           primeCapLeader && (
