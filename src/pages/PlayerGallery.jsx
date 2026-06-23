@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 
 import atharvaImg from '../assets/players/atharva.jpeg';
-import hardikImg from '../assets/players/hardik.jpg';
-import ashishImg from '../assets/players/ashish.jpg';
+import hardikImg from '../assets/players/hardik-2.jpg';
+import ashishImg from '../assets/players/ashish-2.jpg';
 import shouryamImg from '../assets/players/shouryam.jpeg';
 import kartikImg from '../assets/players/kartik.png';
 import ayushImg from '../assets/players/ayush.png';
@@ -61,8 +61,7 @@ export default function PlayerGallery() {
     name: 'Ashish', 
     image: ashishImg, 
     title: 'Orange Cap Leader', 
-    capColor: 'orange' 
-  },       // leave empty if no title
+    capColor: 'orange' },
   { name: 'Shouryam', image: shouryamImg, title: 'Elite Clutch Player', capColor: 'slate' },
   { name: 'Kartik', image: kartikImg, title: 'Silent Contributor' },
   { name: 'Ayush', image: ayushImg, title: 'Emerging Player' },
