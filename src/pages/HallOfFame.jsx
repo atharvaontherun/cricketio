@@ -179,9 +179,13 @@ export default function HallOfFame() {
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-cyan-400 to-orange-500 flex items-center justify-center font-black text-black text-xl shadow-lg shadow-cyan-500/20">
-              C
-            </div>
+            <Link to="/">
+  <img
+    src="/favicon.svg"
+    alt="Cricket IO"
+    className="w-8 h-8 rounded-xl animate-pulse"
+  />
+</Link>
 
             <div>
               <h1 className="text-3xl font-black tracking-tight">
