@@ -38,7 +38,6 @@ export default function CricketIO() {
     )
   }, [])
 
-  // Safety fallback (in case fetch fails)
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 8000)
     return () => clearTimeout(timer)
@@ -69,18 +68,30 @@ export default function CricketIO() {
 
   const primeCapLeader = primeCapData[0]
 
-  // Loading Screen
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center">
-        <p className="text-xl">By Atharva Mehta...</p>
-      </div>
+      <div className="min-h-screen bg-[#030712] text-white flex flex-col items-center justify-center">
+
+  <img
+    src="/favicon.svg"
+    alt="Cricket IO"
+    className="w-28 h-28 mb-6 animate-pulse"
+  />
+
+  <h1 className="text-5xl md:text-7xl font-black tracking-tight">
+    Cricket IO
+  </h1>
+
+  <p className="text-gray-400 text-sm md:text-base mt-3 tracking-widest uppercase">
+    Built by Atharva Mehta
+  </p>
+
+</div>
     )
   }
 
   return (
     <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
-      {/* Rest of your code remains exactly the same */}
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">

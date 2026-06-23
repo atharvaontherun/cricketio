@@ -69,9 +69,23 @@ export default function PlayerGallery() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#030712] text-white flex items-center justify-center">
-        <p className="text-xl">Loading player stats...</p>
-      </div>
+      <div className="min-h-screen bg-[#030712] text-white flex flex-col items-center justify-center">
+
+  <img
+    src="/favicon.svg"
+    alt="Cricket IO"
+    className="w-28 h-28 mb-6 animate-bounce"
+  />
+
+  <h1 className="text-5xl md:text-7xl font-black tracking-tight">
+    Cricket IO
+  </h1>
+
+  <p className="text-gray-400 text-sm md:text-base mt-3 tracking-widest uppercase">
+    Loading stats and player data...
+  </p>
+
+</div>
     );
   }
 
