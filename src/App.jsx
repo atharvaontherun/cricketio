@@ -521,100 +521,88 @@ const getHighest = (data, key) => {
 
             </thead>
 
-            <tbody>
+<tbody>
+  {battingData.map((player, index) => (
 
-              {battingData.map((player, index) => (
+    <tr
+      key={index}
+      className="border-b border-white/5 hover:bg-white/5 transition"
+    >
 
-                <tr
-                  key={index}
-                  className="border-b border-white/5 hover:bg-white/5 transition"
-                >
+      <td className="py-5 font-bold">
+        {player.Player}
+      </td>
 
-                  <td className="py-5 font-bold">
-                    {player.Player}
-                  </td>
+      {/* RUNS */}
+      <td
+        className={
+          Number(String(player.Runs ?? '').replace('*', '').trim()) === battingHighest.Runs
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player.Runs}
+      </td>
 
-                 {/* RUNS */}
-<td
-  className={
-    Number(String(player.Runs ?? '').replace('*', '').trim()) === battingHighest.Runs
-      ? bestStatClass
-      : ""
-  }
->
-  {player.Runs}
-</td>
+      {/* HIGHEST SCORE */}
+      <td
+        className={
+          Number(String(player.Highest ?? '').replace('*', '').trim()) === battingHighest.Highest
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player.Highest}
+      </td>
 
-{/* HIGHEST SCORE */}
-<td
-  className={
-    Number(String(player.Highest ?? '').replace('*', '').trim()) === battingHighest.Highest
-      ? bestStatClass
-      : ""
-  }
->
-  {player.Highest}
-</td>
-                  {/* HIGHEST SCORE */}
-                  <td
-                    className={
-                      Number(player.Highest) === battingHighest.Highest
-                        ? bestStatClass
-                        : ""
-                    }
-                  >
-                    {player.Highest}
-                  </td>
+      {/* STRIKE RATE */}
+      <td
+        className={
+          Number(player['Strike Rate']) === battingHighest.StrikeRate
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player['Strike Rate']}
+      </td>
 
-                  {/* STRIKE RATE */}
-                  <td
-                    className={
-                      Number(player['Strike Rate']) === battingHighest.StrikeRate
-                        ? bestStatClass
-                        : ""
-                    }
-                  >
-                    {player['Strike Rate']}
-                  </td>
+      {/* AVERAGE */}
+      <td
+        className={
+          Number(player.Avg) === battingHighest.Avg
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player.Avg}
+      </td>
 
-                  {/* AVERAGE */}
-                  <td
-                    className={
-                      Number(player.Avg) === battingHighest.Avg
-                        ? bestStatClass
-                        : ""
-                    }
-                  >
-                    {player.Avg}
-                  </td>
+      {/* FOURS */}
+      <td
+        className={
+          Number(player.Fours) === battingHighest.Fours
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player.Fours}
+      </td>
 
-                  {/* FOURS */}
-                  <td
-                    className={
-                      Number(player.Fours) === battingHighest.Fours
-                        ? bestStatClass
-                        : ""
-                    }
-                  >
-                    {player.Fours}
-                  </td>
+      {/* SIXES */}
+      <td
+        className={
+          Number(player.Sixes) === battingHighest.Sixes
+            ? bestStatClass
+            : ""
+        }
+      >
+        {player.Sixes}
+      </td>
 
-                  {/* SIXES */}
-                  <td
-                    className={
-                      Number(player.Sixes) === battingHighest.Sixes
-                        ? bestStatClass
-                        : ""
-                    }
-                  >
-                    {player.Sixes}
-                  </td>
+    </tr>
 
-                </tr>
-
-              ))}
-
-            </tbody>
+  ))}
+</tbody>
 
           </table>
 
