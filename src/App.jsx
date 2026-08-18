@@ -534,8 +534,19 @@ const getHighest = (data, key) => {
                     {player.Player}
                   </td>
 
-                  {/* RUNS */}
-                 <td
+                 {/* RUNS */}
+<td
+  className={
+    Number(String(player.Runs ?? '').replace('*', '').trim()) === battingHighest.Runs
+      ? bestStatClass
+      : ""
+  }
+>
+  {player.Runs}
+</td>
+
+{/* HIGHEST SCORE */}
+<td
   className={
     Number(String(player.Highest ?? '').replace('*', '').trim()) === battingHighest.Highest
       ? bestStatClass
