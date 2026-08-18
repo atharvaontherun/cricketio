@@ -15,7 +15,9 @@ export default function CricketIO() {
         header: true,
         complete: (results) => {
           const cleaned = results.data.filter((player) => player.Player)
-          const sorted = cleaned.sort((a, b) => Number(b.Runs) - Number(a.Runs))
+          const sorted = cleaned.sort(
+            (a, b) => Number(b.Runs) - Number(a.Runs)
+          )
           setBattingData(sorted)
         },
       }
@@ -30,9 +32,11 @@ export default function CricketIO() {
         header: true,
         complete: (results) => {
           const cleaned = results.data.filter((player) => player.Player)
-          const sorted = cleaned.sort((a, b) => Number(b.Wickets) - Number(a.Wickets))
+          const sorted = cleaned.sort(
+            (a, b) => Number(b.Wickets) - Number(a.Wickets)
+          )
           setBowlingData(sorted)
-          setLoading(false)   // ← Important: stop loading when second fetch completes
+          setLoading(false)
         },
       }
     )
@@ -48,7 +52,8 @@ export default function CricketIO() {
 
   const primeCapData = battingData
     .map((player) => {
-      const bowler = bowlingData.find((b) => b.Player === player.Player) || {}
+      const bowler =
+        bowlingData.find((b) => b.Player === player.Player) || {}
 
       const primePoints =
         Number(player.Runs || 0) +
@@ -68,65 +73,132 @@ export default function CricketIO() {
 
   const primeCapLeader = primeCapData[0]
 
+  // --------------------------------------------------
+  // SMART STAT HIGHLIGHTING
+  // --------------------------------------------------
+
+  // Safely get the highest value from a column
+const getHighest = (data, key) => {
+  const values = data
+    .map((player) => {
+      const value = String(player[key] ?? '')
+        .replace('*', '')
+        .trim()
+
+      return Number(value)
+    })
+    .filter((value) => !isNaN(value))
+
+  return values.length ? Math.max(...values) : null
+}
+
+  // Safely get the lowest value from a column
+  const getLowest = (data, key) => {
+    const values = data
+      .map((player) => Number(player[key]))
+      .filter((value) => !isNaN(value))
+
+    return values.length ? Math.min(...values) : null
+  }
+
+  // Batting: higher is better
+  const battingHighest = {
+    Runs: getHighest(battingData, 'Runs'),
+    Highest: getHighest(battingData, 'Highest'),
+    StrikeRate: getHighest(battingData, 'Strike Rate'),
+    Avg: getHighest(battingData, 'Avg'),
+    Fours: getHighest(battingData, 'Fours'),
+    Sixes: getHighest(battingData, 'Sixes'),
+  }
+
+  // Bowling:
+  // Higher is better for wickets and dot balls.
+  // Lower is better for economy.
+  const bowlingBest = {
+    Wickets: getHighest(bowlingData, 'Wickets'),
+    Economy: getLowest(bowlingData, 'Economy'),
+    DotBalls: getHighest(bowlingData, 'DotBalls'),
+  }
+
+  // Green highlight class
+  const bestStatClass = 'text-green-400 font-bold'
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#030712] text-white flex flex-col items-center justify-center">
 
-  <img
-    src="/favicon.svg"
-    alt="Cricket IO"
-    className="w-28 h-28 mb-6 animate-pulse"
-  />
+        <img
+          src="/favicon.svg"
+          alt="Cricket IO"
+          className="w-28 h-28 mb-6 animate-pulse"
+        />
 
-  <h1 className="text-5xl md:text-7xl font-black tracking-tight">
-    Cricket IO
-  </h1>
+        <h1 className="text-5xl md:text-7xl font-black tracking-tight">
+          Cricket IO
+        </h1>
 
-  <p className="text-gray-400 text-sm md:text-base mt-3 tracking-widest uppercase">
-    Built by Atharva Mehta
-  </p>
+        <p className="text-gray-400 text-sm md:text-base mt-3 tracking-widest uppercase">
+          Built by Atharva Mehta
+        </p>
 
-</div>
+      </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-[#030712] text-white overflow-hidden">
+
+      {/* NAVBAR */}
       <nav className="border-b border-white/10 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
           <div className="flex items-center gap-3">
+
             <Link to="/">
-  <img
-    src="/favicon.svg"
-    alt="Cricket IO"
-    className="w-8 h-8 rounded-xl animate-pulse"
-  />
-</Link>
+              <img
+                src="/favicon.svg"
+                alt="Cricket IO"
+                className="w-8 h-8 rounded-xl animate-pulse"
+              />
+            </Link>
+
             <div>
               <h1 className="text-3xl font-black tracking-tight">
                 <Link to="/">Cricket IO</Link>
               </h1>
             </div>
+
           </div>
 
-          <Link to="/halloffame" className="bg-emerald-400 hover:bg-emerald-300 transition text-black font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20">
+          <Link
+            to="/halloffame"
+            className="bg-emerald-400 hover:bg-emerald-300 transition text-black font-bold px-6 py-3 rounded-2xl shadow-lg shadow-emerald-500/20"
+          >
             HALL OF FAME ↗
           </Link>
+
         </div>
       </nav>
+
+      {/* HERO */}
       <section className="relative py-32 px-6">
+
         <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-purple-500/5 to-transparent blur-3xl"></div>
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
+
           <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-400/30 px-5 py-2 rounded-full mb-8">
+
             <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
 
             <span className="text-emerald-300 font-semibold tracking-wide">
               LIVE ANALYSIS BY ATHARVA MEHTA
             </span>
+
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tight">
+
             <span className="text-white">
               BEYOND STATS.
             </span>
@@ -136,14 +208,15 @@ export default function CricketIO() {
             <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">
               TOTAL DOMINATION.
             </span>
+
           </h1>
 
           <p className="mt-8 text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
             Koh-e-Fiza cricket leaderboard backed by live Google Sheets stats.
           </p>
 
-        
           <div className="flex justify-center gap-8 mt-14 flex-wrap">
+
             <a href="#orange-cap">
               <button className="bg-gradient-to-r from-orange-400 to-amber-500 text-white font-black px-10 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
                 ✦ ORANGE CAP RACE
@@ -155,13 +228,14 @@ export default function CricketIO() {
                 ✦ PURPLE CAP RACE
               </button>
             </a>
+
           </div>
 
-
           <div className="flex justify-center gap-8 mt-14 flex-wrap">
+
             <Link to="/gallery">
               <button className="bg-gradient-to-r from-red-400 to-red-500 text-white font-black px-12 py-5 rounded-3xl text-xl shadow-2xl shadow-orange-500/20 hover:scale-105 transition duration-300">
-               📸 PLAYER GALLERY
+                📸 PLAYER GALLERY
               </button>
             </Link>
 
@@ -170,74 +244,105 @@ export default function CricketIO() {
                 🏆 HALL OF FAME ➜
               </button>
             </Link>
+
           </div>
 
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-4 ">
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-emerald-500/5">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
-                  🧢Prime Cap
-                </h2>
+      {/* PRIME CAP */}
+      <section className="max-w-7xl mx-auto px-6 py-4">
 
-              
-              </div>
+        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-emerald-500/5">
+
+          <div className="flex items-center justify-between mb-8">
+
+            <div>
+              <h2 className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
+                🧢Prime Cap
+              </h2>
             </div>
+
+          </div>
 
           <section className="max-w-7xl mx-auto px-6 py-2 grid md:grid-cols-1 gap-10"></section>
-            <div className="space-y-5">
-              {primeCapData.slice(0, 5).map((player, index) => (
-                <div
-                  key={index}
-                  className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-emerald-400/30 transition"
-                >
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-200 via-zinc-300 to-slate-400 flex items-center justify-center text-black font-black text-xl">
-                      #{index + 1}
-                    </div>
 
-                    <div>
-                      <h3 className="text-2xl font-bold">
-                        {player.Player} <a className="font-normal" href="/gallery">🛈︎</a>
+          <div className="space-y-5">
 
-                        {index !== 0 &&
-                          primeCapLeader && (
-                            <span className="text-red-400 text-sm font-semibold ml-2">
-                              ▼{" "}
-                              {primeCapLeader.PrimePoints -
-                                player.PrimePoints}
-                            </span>
-                          )}
-                      </h3>
+            {primeCapData.slice(0, 5).map((player, index) => (
 
-                      <p className="text-gray-400">
-                        Season 1 Ratings
-                      </p>
-                    </div>
+              <div
+                key={index}
+                className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-emerald-400/30 transition"
+              >
+
+                <div className="flex items-center gap-5">
+
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-200 via-zinc-300 to-slate-400 flex items-center justify-center text-black font-black text-xl">
+                    #{index + 1}
                   </div>
 
-                  <div className="text-right">
-                    <div className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
-                      {player.PrimePoints}
-                    </div>
+                  <div>
 
-                    <div className="text-gray-500 text-sm">
-                      Prime Points
-                    </div>
+                    <h3 className="text-2xl font-bold">
+
+                      {player.Player}
+
+                      <a className="font-normal" href="/gallery">
+                        🛈︎
+                      </a>
+
+                      {index !== 0 &&
+                        primeCapLeader && (
+                          <span className="text-red-400 text-sm font-semibold ml-2">
+                            ▼{" "}
+                            {primeCapLeader.PrimePoints -
+                              player.PrimePoints}
+                          </span>
+                        )}
+
+                    </h3>
+
+                    <p className="text-gray-400">
+                      Season 1 Ratings
+                    </p>
+
                   </div>
+
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>        
 
+                <div className="text-right">
+
+                  <div className="text-4xl font-black bg-gradient-to-r from-slate-200 via-zinc-300 to-slate-400 bg-clip-text text-transparent">
+                    {player.PrimePoints}
+                  </div>
+
+                  <div className="text-gray-500 text-sm">
+                    Prime Points
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ORANGE + PURPLE CAP */}
       <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10">
+
+        {/* ORANGE CAP */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-orange-500/5">
+
           <div id="orange-cap" className="flex items-center justify-between mb-8">
+
             <div>
+
               <h2 className="text-4xl font-black text-orange-400">
                 Orange Cap
               </h2>
@@ -245,56 +350,75 @@ export default function CricketIO() {
               <p className="text-gray-400 mt-2">
                 Top Run Scorers
               </p>
+
             </div>
+
           </div>
 
           <div className="space-y-5">
+
             {battingData.slice(0, 5).map((player, index) => (
+
               <div
                 key={index}
                 className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-orange-400/30 transition"
               >
+
                 <div className="flex items-center gap-5">
+
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-black font-black text-xl">
                     #{index + 1}
                   </div>
 
                   <div>
+
                     <h3 className="text-2xl font-bold">
-                      {player.Player} {index !== 0 && orangeCapLeader && (
-  <span className="text-red-400 text-sm font-semibold mt-1">
-    ▼ {Number(orangeCapLeader.Runs) - Number(player.Runs)}
-  </span>
-)}
-                    </h3> 
-                    
+
+                      {player.Player}
+
+                      {index !== 0 && orangeCapLeader && (
+                        <span className="text-red-400 text-sm font-semibold mt-1">
+                          ▼ {Number(orangeCapLeader.Runs) - Number(player.Runs)}
+                        </span>
+                      )}
+
+                    </h3>
 
                     <p className="text-gray-400">
                       SR: {player['Strike Rate']} | Innings: {player.Innings}
                     </p>
+
                   </div>
+
                 </div>
 
                 <div className="text-right">
+
                   <div className="text-4xl font-black text-orange-400">
                     {player.Runs}
                   </div>
 
                   <div className="text-gray-500 text-sm">
-  Runs
-</div>
+                    Runs
+                  </div>
 
-
-                
                 </div>
+
               </div>
+
             ))}
+
           </div>
+
         </div>
 
+        {/* PURPLE CAP */}
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5">
+
           <div id="purple-cap" className="flex items-center justify-between mb-8">
+
             <div>
+
               <h2 className="text-4xl font-black text-purple-400">
                 Purple Cap
               </h2>
@@ -302,37 +426,50 @@ export default function CricketIO() {
               <p className="text-gray-400 mt-2">
                 Top Wicket Takers
               </p>
+
             </div>
+
           </div>
 
           <div className="space-y-5">
+
             {bowlingData.slice(0, 5).map((player, index) => (
+
               <div
                 key={index}
                 className="bg-black/30 border border-white/5 rounded-2xl p-5 flex items-center justify-between hover:border-purple-400/30 transition"
               >
+
                 <div className="flex items-center gap-5">
+
                   <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center text-white font-black text-xl">
                     #{index + 1}
                   </div>
 
                   <div>
+
                     <h3 className="text-2xl font-bold">
-                      {player.Player} {index !== 0 && purpleCapLeader && (
-  <span className="text-red-400 text-sm font-semibold mt-1">
-    ▼ {Number(purpleCapLeader.Wickets) - Number(player.Wickets)}
-  </span>
-)}
-                    </h3> 
+
+                      {player.Player}
+
+                      {index !== 0 && purpleCapLeader && (
+                        <span className="text-red-400 text-sm font-semibold mt-1">
+                          ▼ {Number(purpleCapLeader.Wickets) - Number(player.Wickets)}
+                        </span>
+                      )}
+
+                    </h3>
 
                     <p className="text-gray-400">
                       Economy: {player.Economy} | Overs: {player.Overs}
                     </p>
-                    
+
                   </div>
+
                 </div>
 
                 <div className="text-right">
+
                   <div className="text-4xl font-black text-purple-400">
                     {player.Wickets}
                   </div>
@@ -340,110 +477,247 @@ export default function CricketIO() {
                   <div className="text-gray-500 text-sm">
                     Wickets
                   </div>
+
                 </div>
+
               </div>
+
             ))}
+
           </div>
+
         </div>
+
       </section>
 
+      {/* BATTING STATS */}
       <section className="max-w-7xl mx-auto px-6 pb-14">
+
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 overflow-x-auto">
+
           <div className="mb-8">
+
             <h2 className="text-4xl font-black">
               Batting Stats
             </h2>
+
           </div>
 
           <table className="w-full text-left">
+
             <thead>
+
               <tr className="border-b border-white/10 text-gray-400">
+
                 <th className="pb-4">Player</th>
                 <th className="pb-4">Runs</th>
                 <th className="pb-4">Highest</th>
                 <th className="pb-4">SR</th>
+                <th className="pb-4">AVG</th>
                 <th className="pb-4">4s</th>
                 <th className="pb-4">6s</th>
+
               </tr>
+
             </thead>
 
             <tbody>
+
               {battingData.map((player, index) => (
+
                 <tr
                   key={index}
                   className="border-b border-white/5 hover:bg-white/5 transition"
                 >
+
                   <td className="py-5 font-bold">
                     {player.Player}
                   </td>
 
-                  <td>{player.Runs}</td>
+                  {/* RUNS */}
+                 <td
+  className={
+    Number(String(player.Highest ?? '').replace('*', '').trim()) === battingHighest.Highest
+      ? bestStatClass
+      : ""
+  }
+>
+  {player.Highest}
+</td>
+                  {/* HIGHEST SCORE */}
+                  <td
+                    className={
+                      Number(player.Highest) === battingHighest.Highest
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Highest}
+                  </td>
 
-                  <td>{player.Highest}</td>
+                  {/* STRIKE RATE */}
+                  <td
+                    className={
+                      Number(player['Strike Rate']) === battingHighest.StrikeRate
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player['Strike Rate']}
+                  </td>
 
-                  <td>{player['Strike Rate']}</td>
+                  {/* AVERAGE */}
+                  <td
+                    className={
+                      Number(player.Avg) === battingHighest.Avg
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Avg}
+                  </td>
 
-                  <td>{player.Fours}</td>
+                  {/* FOURS */}
+                  <td
+                    className={
+                      Number(player.Fours) === battingHighest.Fours
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Fours}
+                  </td>
 
-                  <td>{player.Sixes}</td>
+                  {/* SIXES */}
+                  <td
+                    className={
+                      Number(player.Sixes) === battingHighest.Sixes
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Sixes}
+                  </td>
+
                 </tr>
+
               ))}
+
             </tbody>
+
           </table>
+
         </div>
+
       </section>
 
+      {/* BOWLING STATS */}
       <section className="max-w-7xl mx-auto px-6 pb-24">
+
         <div className="bg-white/5 border border-white/10 rounded-3xl p-8 overflow-x-auto">
+
           <div className="mb-8">
+
             <h2 className="text-4xl font-black">
               Bowling Stats
             </h2>
+
           </div>
 
           <table className="w-full text-left">
-  <thead>
-    <tr className="border-b border-white/10 text-gray-400">
-      <th className="pb-4">Player</th>
-      <th className="pb-4">Innings</th>
-      <th className="pb-4">Wickets</th>
-      <th className="pb-4">Economy</th>
-      <th className="pb-4">Overs</th>
-      <th className="pb-4">Dot Balls</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    {bowlingData.map((player, index) => (
-      <tr
-        key={index}
-        className="border-b border-white/5 hover:bg-white/5 transition"
-      >
-        <td className="py-5 font-bold">
-          {player.Player}
-        </td>
+            <thead>
 
-        <td>{player.Innings}</td>
+              <tr className="border-b border-white/10 text-gray-400">
 
-        <td>{player.Wickets}</td>
+                <th className="pb-4">Player</th>
+                <th className="pb-4">Innings</th>
+                <th className="pb-4">Wickets</th>
+                <th className="pb-4">Economy</th>
+                <th className="pb-4">Overs</th>
+                <th className="pb-4">Dot Balls</th>
 
-        <td>{player.Economy}</td>
+              </tr>
 
-        <td>{player.Overs}</td>
+            </thead>
 
-        <td>{player.DotBalls}</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+            <tbody>
+
+              {bowlingData.map((player, index) => (
+
+                <tr
+                  key={index}
+                  className="border-b border-white/5 hover:bg-white/5 transition"
+                >
+
+                  <td className="py-5 font-bold">
+                    {player.Player}
+                  </td>
+
+                  {/* INNINGS - neutral */}
+                  <td>
+                    {player.Innings}
+                  </td>
+
+                  {/* WICKETS - higher is better */}
+                  <td
+                    className={
+                      Number(player.Wickets) === bowlingBest.Wickets
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Wickets}
+                  </td>
+
+                  {/* ECONOMY - lower is better */}
+                  <td
+                    className={
+                      Number(player.Economy) === bowlingBest.Economy
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.Economy}
+                  </td>
+
+                  {/* OVERS - neutral */}
+                  <td>
+                    {player.Overs}
+                  </td>
+
+                  {/* DOT BALLS - higher is better */}
+                  <td
+                    className={
+                      Number(player.DotBalls) === bowlingBest.DotBalls
+                        ? bestStatClass
+                        : ""
+                    }
+                  >
+                    {player.DotBalls}
+                  </td>
+
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
         </div>
+
       </section>
 
+      {/* FOOTER */}
       <footer className="border-t border-white/10 mt-10 py-10 text-center text-gray-500">
+
         <p>
           Cricket IO • Built by Atharva Mehta
         </p>
+
       </footer>
+
     </div>
   )
 }
