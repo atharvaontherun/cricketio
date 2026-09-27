@@ -592,7 +592,7 @@ export default function HallOfFame() {
 
           <ShameCard
             title="Slowest Knock"
-            stat="9(13)"
+            stat="9 (13 balls)"
             player="Kartik"
             index={2}
           />
