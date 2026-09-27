@@ -584,15 +584,11 @@ export default function HallOfFame() {
           />
 
           <ShameCard
-            title="Worst Bowling"
-            stat={
-              worstBowling
-                ? `${worstBowling.WorstBowling}44 (${worstBowling.Balls}9)`
-                : '—'
-            }
-            player="Shouryam"
-            index={1}
-          />
+  title="Worst Bowling"
+  stat="44 (9 balls)"
+  player="Shouryam"
+  index={1}
+/>
 
           <ShameCard
             title="Slowest Knock"
